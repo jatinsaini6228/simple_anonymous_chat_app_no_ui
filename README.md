@@ -1,8 +1,7 @@
-# nodejs_chatapp
-# nodejs_chatapp
-Simple Chat Application with NO UI in Node Js
+# nodejs_chatapp #noUI #noDatabase 
 
+Just Simple Chat Application with Node JS
 - Express Js
 - Socket IO
-- Index HTML as Frontend
-- Server Js for NODE JS
+- Index HTML for frontend
+- Anonymous Chats

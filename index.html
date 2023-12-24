@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Chat App</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="m" autocomplete="off" placeholder="Enter your text" title=""/>
+    <button>Send</button>
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <!-- Add this snippet to your existing script section in index.html -->
+
+  <!-- Add this snippet to your existing script section in index.html -->
+<script>
+    const socket = io();
+  
+    function addMessage(msg, isSender) {
+      const ul = document.getElementById("messages");
+      const li = document.createElement("li");
+  
+      if (isSender) {
+        li.textContent = `Your Socket ID (${socket.id}): ${msg}`;
+      } else {
+        li.textContent = `Someone's Socket ID: ${msg}`;
+      }
+  
+      ul.appendChild(li);
+    }
+  
+    document.getElementById("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = document.getElementById("m");
+      const message = input.value;
+      addMessage(message, true); // Mark the message as from the sender before emitting
+      socket.emit("chat message", message);
+      input.value = "";
+      return false;
+    });
+  
+    socket.on("chat message", function (msg) {
+      addMessage(msg, false); // Mark the message as from someone else
+    });
+  </script>
+  
+
+</body>
+</html>
